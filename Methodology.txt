@@ -1,0 +1,28 @@
+[X]General // beginning 
+    [X]Install all dependencies
+    [X]Source bootstrap and jQuery into project and HTML
+    [X]File structure it up!
+    [X]HTML Outline
+
+
+[] Base Goals
+    [] Make a calculator in the server with a U.I.
+        on client-side
+            [X] 2 number inputs
+            [X] =, -, /, *, +, selector for type of math
+            [] Clear button to empty user Input
+            [] Server-side math for the inputs
+            [] Probably an array to store inputs and results?
+            [] When the submit (= button) is clicked, capture this input,
+                bundle it up in an object, and send this object to the server
+                via a POST.
+            [] do not use eval() for this assignment
+            [] History of past calculations on dom
+
+
+[] Stretch Goals
+    []Replace inputs with 1-0 buttons
+    []POST only happen if all input is ready
+    []Clear history button
+    []Allow re-running math from history by clicking it
+    []Deploy to Heroku
