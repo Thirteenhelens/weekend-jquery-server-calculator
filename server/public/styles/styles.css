@@ -20,3 +20,11 @@ body {
     text-align: center;
     margin-top: 25px;
 }
+
+.result {
+    margin-right: 350px;
+    margin-left: 350px;
+    border: indianred;
+    border-style: groove;
+    border-radius: 12px;
+}
