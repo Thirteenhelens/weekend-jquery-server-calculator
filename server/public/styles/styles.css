@@ -1,0 +1,22 @@
+body {
+    background-color: ivory;
+}
+
+.topText {
+    text-align: left;
+    background-color: darkseagreen;
+    margin-bottom: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#tableContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#resultFeild {
+    text-align: center;
+    margin-top: 25px;
+}

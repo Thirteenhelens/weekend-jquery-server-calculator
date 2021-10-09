@@ -6,30 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <script src="vendors/jquery-3.6.0.min.js"></script>
+    <script src="scripts/client.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body>
     <div class="topText">
-        <h1>Server Side Calculator:</h1>
+        <h1>Server Side Calculator</h1>
     </div>
 
-    <div class="inputs">
-        <input type="number">
-        <select name="operator" id="operatorSelector">
-            <option disabled selected hidden>Operator</option>
-            <option value="+">+</option>
-            <option value="-">-</option>
-            <option value="*">*</option>
-            <option value="/">/</option>
-        </select>
-        <input type="number">
-        <button id="evalButton" class="">=</button>
-        <button id="clearButton" class="">Clear</button>
+    <div id="tableContainer">
+        
+        <table class="inputTable">
+            <tr>
+                <th>
+                    <input type="number" class="input-group-text" id="numOneIn" placeholder="Int 1">
+                </th>
+                <th>
+                    <select name="operator" id="operatorSelector" class="btn btn-warning dropdown-toggle">
+                        <option value="default" disabled selected hidden>Operator</option>
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">*</option>
+                        <option value="/">/</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="number" class="input-group-text" id="numTwoIn" placeholder="Int 2">
+                </th>
+                <th>
+                    <button id="evalButton" class="btn btn-outline-dark">=</button>
+                </th>
+                <th>
+                    <button id="clearButton" class="btn btn-outline-danger">Clear</button>
+                </th>
+            </tr>
+        </table>
+
     </div>
 
-    <div id="resultFeild"> <p>21</p> </div>
 
-    <div id="mathHistory"> <p>9 + 10 = 21</p> </div>
+    <div id="resultFeild">
+        <p>Result: <span id="currentResult"></span></p>
+    </div>
+
+
+    <div id="mathHistory">
+        <p>9 + 10 = 21</p>
+    </div>
 
 </body>
 
