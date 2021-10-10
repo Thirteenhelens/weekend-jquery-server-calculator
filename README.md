@@ -1,6 +1,4 @@
-# PROJECT NAME
-
-Server-Side Calculator
+# Server-Side Calculator
 ## Description
 
 This is a simple calculator that takes 2 inputs, as well as an operand to evaluate the numbers against.
