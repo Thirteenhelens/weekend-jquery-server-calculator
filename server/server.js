@@ -1,15 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const { response } = require("express");
 const app = express();
 const PORT = 5000;
-let history = {};
+let history = [];
+
+// const { FailedDependency } = require("http-errors");
 
 
-// This must be added before GET & POST routes.
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Hand over static files
 app.use(express.static("server/public"));
 
 app.listen(PORT, () => {
@@ -17,15 +16,59 @@ app.listen(PORT, () => {
 });
 
 
+app.get("/history", (req, res) => {
+    console.log(`Looking for history`);
+    res.send(history)
+});
 
-// app.post("/evaulate", (req, res) => {
-//     console.log(req.body);
 
-//     let inputs = req.body;
+//The other side of the evaluate post
+app.post("/evaluate", (req, res) => {
+    console.log(req.body);
+
+    // req.body.unshift({
+    //     numOneIn: req.body.numOneIn,
+    //     numTwoIn: req.body.numTwoIn,
+    //     operatorSelector: req.body.operatorSelector,
+    //     result: claculator(req.body)
+    // })
+
+    let inputs = req.body;
+
+    history.push(inputs);
+
+    inputs.result = claculated(inputs)
+
+    res.send(inputs);
+
+    res.sendStatus(202);
+});
 
 
-//     res.sendStatus(202);
-// });
+function claculated(inputs) {
+    switch (inputs.operator) {
+        default:
+            console.log('Empty operator');
+            break;
+        case '+':
+            inputs.result = parseInt(inputs.numOneIn) + parseInt(inputs.numTwoIn)
+            console.log(inputs.result);
+            break;
+        case '-':
+            inputs.result = parseInt(inputs.numOneIn) - parseInt(inputs.numTwoIn)
+            console.log(inputs.result);
+            break;
+        case '*':
+            inputs.result = parseInt(inputs.numOneIn) * parseInt(inputs.numTwoIn)
+            console.log(inputs.result);
+            break;
+        case '/':
+            inputs.result = parseInt(inputs.numOneIn) / parseInt(inputs.numTwoIn)
+            console.log(inputs.result);
+            break;
+    }
+}
+
 
 // app.post("/guesses", (req, res) => {
 //     console.log("This is req.body", req.body);

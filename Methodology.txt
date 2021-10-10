@@ -13,13 +13,29 @@
             [X] =, -, /, *, +, selector for type of math
             [X] Clear button to empty user Input
                 [X] Clear should remove result as well
-            [] When the submit (= button) is clicked, capture this input,
+            [X] When the submit (= button) is clicked, capture this input,
                 bundle it up in an object, and send this object to the server
                 via a POST. 
                 [] Server-side math for the inputs
             [X] do not use eval() for this assignment
-            [] History of past calculations on dom
+            [] History of past calculations on DOM
+            [] Save history, put it on DOM
 
+
+[]Making the calculation work
+    []Client-side
+        []Take inputs, make them an object
+        []Send said object to server
+        []Take response and put it on the DOM
+        []To put on DOM - send to a function that adds specifically that eq.
+        []History on DOM - get the history from server
+        []Iterate over history and put it on the DOM
+    []Server-side
+        []Receive Inputs
+        []Math(???)
+        []add a result to the object
+        []Add the object to history
+        []Return the object with result
 
 [] Stretch Goals
     []Replace inputs with 1-0 buttons
