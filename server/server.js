@@ -4,8 +4,6 @@ const app = express();
 const PORT = 5000;
 let history = [];
 
-// const { FailedDependency } = require("http-errors");
-
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -33,11 +31,18 @@ app.post("/evaluate", (req, res) => {
     //     result: claculator(req.body)
     // })
 
+    req.body = {
+        numOneIn: '1',
+        numTwoIn: '2',
+        operatorSelector: '+',
+        result: '3'
+    }
+
     let inputs = req.body;
 
-    history.push(inputs);
+    // history.push(inputs);
 
-    inputs.result = claculated(inputs)
+    // inputs.result = claculated(inputs)
 
     res.send(inputs);
 

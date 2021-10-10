@@ -4,13 +4,15 @@ $(document).ready(onLoad);
 function onLoad() {
     console.log(`Hello!`);
 
+    //Checking history and putting it on DOM
+    getHistory();
+
     // Click listeners
     $(`#clearButton`).on(`click`, clearInput);
     $(`#evalButton`).on(`click`, evaluateInputs);
 }
 
 
-// When the eval button is pressed, the following comments happen
 function evaluateInputs() {
     // Log to make sure everything is correct
     console.log($('#numOneIn').val(), $('#numTwoIn').val(), $('#operatorSelector').val());
@@ -28,65 +30,96 @@ function evaluateInputs() {
     }).then(function (response) {
         console.log('Success POST', response);
 
-        // emptying everything after 
+        //Emptying everything for safety 
         $('#numOneIn').val(''),
-            $('#numTwoIn').val(''),
-            $('#operatorSelector').val('default')
+        $('#numTwoIn').val(''),
+        $('#operatorSelector').val('default')
 
         //Check response
         console.log(response);
 
-        //Put new response on dom
-        renderToDOM();
+        //Put new response on DOM via function
+        resultToDOM(response);
 
     }).catch(function (response) {
-        //Let everything know something went wrong
+        //Did something go wrong?
         alert('Calculator Failed, please try again');
         console.log('POST FAILED');
     })
 }
 
 
+function resultToDOM(responseObject) {
+    //Check what object is comprised of
+    console.log('responseObject', responseObject);
+
+    //Clear result landing area
+    $('#currentResult').text('');
+    //Add result to DOM (part 1)
+    $('#currentResult').append(responseObject.result);
+
+    //Making the append more legible
+    let firstNum = responseObject.numOneIn;
+    let secondNum = responseObject.numTwoIn;
+    let operator = responseObject.operatorSelector;
+    let result = responseObject.result;
+
+    //Add result to DOM (part 2)
+    $('#historyTableBody').append(`
+        <tr>
+            <td>${firstNum + ' ' + operator + ' ' + secondNum}</td>
+            <td>${result}</td>
+        </td>
+    `);
+}
+
+
 function getHistory() {
+    //Getting array of previous equations from server
     $.ajax({
         method: 'GET',
         url: '/history'
     }).then(function (response) {
-        console.log(`Here's the history:`, response);
-
-        renderToDOM(response)
+        //Sending previous equations to be put on the DOM
+        historyToDOM(response)
     }).catch(function (response) {
+        //Letting me know if something went wrong
         console.log(`Uh-Oh, get history failed`);
     })
 }
 
 
-function renderToDOM(history) {
+function historyToDOM(history) {
+
     //Clear table and result for safety
     $('#currentResult').text(''),
-    $('#historyTableBody').empty();
+        $('#historyTableBody').empty();
 
     //Look at history, put it all on DOM
     for (let question of history) {
+        console.log(question);
+
+        let firstNum = question.numOneIn;
+        let secondNum = question.numTwoIn;
+        let operator = question.operatorSelector;
+        let result = question.result;
+
         $('#historyTableBody').append(`
         <tr>
-            <td>${question.numOneIn, question.operatorSelector, question.numTwoIn}</td>
-            <td>${question.result}</td>
+            <td>${firstNum + ' ' + operator + ' ' + secondNum}</td>
+            <td>${result}</td>
         </td>
     `)
     }
-
-    $('#currentResult').append(question.result);
 }
 
 
-// When the clear button is pressed, everything is 
-// reset to default or emptied.
 function clearInput() {
+    //This func empties inputs, and sets the selector to default
     console.log(`Clear Pressed!`);
 
     $('#operatorSelector').val('default'),
-    $('#numOneIn').val(''),
-    $('#numTwoIn').val(''),
-    $('#currentResult').text('')
-};
+        $('#numOneIn').val(''),
+        $('#numTwoIn').val(''),
+        $('#currentResult').text('')
+}
