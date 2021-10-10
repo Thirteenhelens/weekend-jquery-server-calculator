@@ -1,7 +1,9 @@
 $(document).ready(onLoad);
 
-//Typical on load stuff :)
+let firstTime = true;
+
 function onLoad() {
+    //Typical on load stuff :)
     console.log(`Hello!`);
 
     //Checking history and putting it on DOM
@@ -9,11 +11,11 @@ function onLoad() {
 
     // Click listeners
     $(`#clearButton`).on(`click`, clearInput);
-    $(`#evalButton`).on(`click`, evaluateInputs);
+    $(`#evalButton`).on(`click`, sendInputs);
 }
 
 
-function evaluateInputs() {
+function sendInputs() {
     // Log to make sure everything is correct
     console.log($('#numOneIn').val(), $('#numTwoIn').val(), $('#operatorSelector').val());
 
@@ -24,11 +26,12 @@ function evaluateInputs() {
         data: {
             inputOne: $('#numOneIn').val(),
             inputTwo: $('#numTwoIn').val(),
-            operator: $('#operatorSelector').val(),
-            result: ''
-        }
+            operator: $('#operatorSelector').val()
+        } //data ends
     }).then(function (response) {
         console.log('Success POST', response);
+
+        getHistory();
 
         //Emptying everything for safety 
         $('#numOneIn').val(''),
@@ -38,8 +41,8 @@ function evaluateInputs() {
         //Check response
         console.log(response);
 
-        //Put new response on DOM via function
-        resultToDOM(response);
+        // //Put new response on DOM via function
+        // resultToDOM(response);
 
     }).catch(function (response) {
         //Did something go wrong?
@@ -49,29 +52,30 @@ function evaluateInputs() {
 }
 
 
-function resultToDOM(responseObject) {
-    //Check what object is comprised of
-    console.log('responseObject', responseObject);
+// function resultToDOM(responseObject) {
 
-    //Clear result landing area
-    $('#currentResult').text('');
-    //Add result to DOM (part 1)
-    $('#currentResult').append(responseObject.result);
+//     //Check what object is comprised of
+//     console.log('responseObject', responseObject);
 
-    //Making the append more legible
-    let firstNum = responseObject.numOneIn;
-    let secondNum = responseObject.numTwoIn;
-    let operator = responseObject.operatorSelector;
-    let result = responseObject.result;
+//     //Clear result landing area
+//     $('#currentResult').text('');
+//     //Add result to DOM (part 1)
+//     $('#currentResult').append(responseObject.result);
 
-    //Add result to DOM (part 2)
-    $('#historyTableBody').append(`
-        <tr>
-            <td>${firstNum + ' ' + operator + ' ' + secondNum}</td>
-            <td>${result}</td>
-        </td>
-    `);
-}
+//     //Making the append more legible
+//     let firstNum = responseObject.inputOne;
+//     let secondNum = responseObject.inputTwo;
+//     let operator = responseObject.operator;
+//     let result = responseObject.result;
+
+//     //Add result to DOM (part 2)
+//     $('#historyTableBody').append(`
+//         <tr>
+//             <td>${firstNum} ${operator} ${secondNum}</td>
+//             <td>${result}</td>
+//         </td>
+//     `);
+// }
 
 
 function getHistory() {
@@ -80,6 +84,10 @@ function getHistory() {
         method: 'GET',
         url: '/history'
     }).then(function (response) {
+
+        console.log(response);
+        // resultToDOM(response[response.length -1]);
+
         //Sending previous equations to be put on the DOM
         historyToDOM(response)
     }).catch(function (response) {
@@ -92,21 +100,30 @@ function getHistory() {
 function historyToDOM(history) {
 
     //Clear table and result for safety
-    $('#currentResult').text(''),
-        $('#historyTableBody').empty();
+    $('#currentResult').text('');
+    $('#historyTableBody').empty();
+
+
+    let current = history[history.length - 1].result;
+
+    if (firstTime === false) {
+        $('#currentResult').text(current);
+    };
+
+    firstTime = false;
 
     //Look at history, put it all on DOM
     for (let question of history) {
         console.log(question);
 
-        let firstNum = question.numOneIn;
-        let secondNum = question.numTwoIn;
-        let operator = question.operatorSelector;
+        let firstNum = question.inputOne;
+        let secondNum = question.inputTwo;
+        let operator = question.operator;
         let result = question.result;
 
         $('#historyTableBody').append(`
         <tr>
-            <td>${firstNum + ' ' + operator + ' ' + secondNum}</td>
+            <td>${firstNum} ${operator} ${secondNum}</td>
             <td>${result}</td>
         </td>
     `)
@@ -119,7 +136,7 @@ function clearInput() {
     console.log(`Clear Pressed!`);
 
     $('#operatorSelector').val('default'),
-        $('#numOneIn').val(''),
-        $('#numTwoIn').val(''),
-        $('#currentResult').text('')
+    $('#numOneIn').val(''),
+    $('#numTwoIn').val(''),
+    $('#currentResult').text('')
 }

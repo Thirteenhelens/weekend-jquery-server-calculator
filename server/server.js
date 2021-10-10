@@ -20,58 +20,45 @@ app.get("/history", (req, res) => {
 });
 
 
-//The other side of the evaluate post
 app.post("/evaluate", (req, res) => {
-    console.log(req.body);
+    let equation = req.body;
 
-    // req.body.unshift({
-    //     numOneIn: req.body.numOneIn,
-    //     numTwoIn: req.body.numTwoIn,
-    //     operatorSelector: req.body.operatorSelector,
-    //     result: claculator(req.body)
-    // })
-
-    req.body = {
-        numOneIn: '1',
-        numTwoIn: '2',
-        operatorSelector: '+',
-        result: '3'
-    }
-
-    let inputs = req.body;
-
-    // history.push(inputs);
-
-    // inputs.result = claculated(inputs)
-
-    res.send(inputs);
+    history.push(calculated(equation));
+    
+    console.log(history);
 
     res.sendStatus(202);
 });
 
 
-function claculated(inputs) {
-    switch (inputs.operator) {
+function calculated(equation) {
+    console.log(equation);
+    let numOne = Number(equation.inputOne);
+    let numTwo = Number(equation.inputTwo);
+    let operator = equation.operator;
+
+    switch (operator) {
         default:
             console.log('Empty operator');
             break;
         case '+':
-            inputs.result = parseInt(inputs.numOneIn) + parseInt(inputs.numTwoIn)
-            console.log(inputs.result);
+            equation.result = numOne + numTwo;
+                console.log(equation.result);
             break;
         case '-':
-            inputs.result = parseInt(inputs.numOneIn) - parseInt(inputs.numTwoIn)
-            console.log(inputs.result);
+            equation.result = numOne - numTwo;
+                console.log(equation.result);
             break;
         case '*':
-            inputs.result = parseInt(inputs.numOneIn) * parseInt(inputs.numTwoIn)
-            console.log(inputs.result);
+            equation.result = numOne * numTwo;
+                console.log(equation.result);
             break;
         case '/':
-            inputs.result = parseInt(inputs.numOneIn) / parseInt(inputs.numTwoIn)
-            console.log(inputs.result);
+            equation.result = numOne / numTwo;
+                console.log(equation.result);
             break;
-    }
+    }; //switch ends
+    return equation;
 }
 
 
@@ -89,3 +76,13 @@ function claculated(inputs) {
 
 
 
+// req.body.unshift({
+    //     numOneIn: req.body.numOneIn,
+    //     numTwoIn: req.body.numTwoIn,
+    //     operatorSelector: req.body.operatorSelector,
+    //     result: claculator(req.body)
+    // })
+    // let inputs = req.body;
+    // history.push(inputs);
+    // inputs.result = claculated(inputs)
+    // res.send(inputs);

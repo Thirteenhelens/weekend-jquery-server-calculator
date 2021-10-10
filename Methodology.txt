@@ -22,14 +22,14 @@
             [] Save history, put it on DOM
 
 
-[]Making the calculation work
-    []Client-side
-        []Take inputs, make them an object
-        []Send said object to server
-        []Take response and put it on the DOM
-        []To put on DOM - send to a function that adds specifically that eq.
-        []History on DOM - get the history from server
-        []Iterate over history and put it on the DOM
+Making the calculation work
+    [X]Client-side
+        [X]Take inputs, make them an object
+        [X]Send said object to server
+        [X]Take response and put it on the DOM
+        [X]To put on DOM - send to a function that adds specifically that eq.
+        [X]History on DOM - get the history from server
+        [X]Iterate over history and put it on the DOM
     []Server-side
         []Receive Inputs
         []Math(???)
