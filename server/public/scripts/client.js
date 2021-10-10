@@ -1,5 +1,6 @@
 $(document).ready(onLoad);
 
+//This is only set to true when the page loads for the first time
 let firstTime = true;
 
 function onLoad() {
@@ -34,15 +35,13 @@ function sendInputs() {
         getHistory();
 
         //Emptying everything for safety 
-        $('#numOneIn').val(''),
-        $('#numTwoIn').val(''),
+        $('#numOneIn').val('');
+        $('#numTwoIn').val('');
         $('#operatorSelector').val('default')
 
         //Check response
         console.log(response);
 
-        // //Put new response on DOM via function
-        // resultToDOM(response);
 
     }).catch(function (response) {
         //Did something go wrong?
@@ -52,42 +51,13 @@ function sendInputs() {
 }
 
 
-// function resultToDOM(responseObject) {
-
-//     //Check what object is comprised of
-//     console.log('responseObject', responseObject);
-
-//     //Clear result landing area
-//     $('#currentResult').text('');
-//     //Add result to DOM (part 1)
-//     $('#currentResult').append(responseObject.result);
-
-//     //Making the append more legible
-//     let firstNum = responseObject.inputOne;
-//     let secondNum = responseObject.inputTwo;
-//     let operator = responseObject.operator;
-//     let result = responseObject.result;
-
-//     //Add result to DOM (part 2)
-//     $('#historyTableBody').append(`
-//         <tr>
-//             <td>${firstNum} ${operator} ${secondNum}</td>
-//             <td>${result}</td>
-//         </td>
-//     `);
-// }
-
-
 function getHistory() {
     //Getting array of previous equations from server
     $.ajax({
         method: 'GET',
         url: '/history'
     }).then(function (response) {
-
         console.log(response);
-        // resultToDOM(response[response.length -1]);
-
         //Sending previous equations to be put on the DOM
         historyToDOM(response)
     }).catch(function (response) {
@@ -98,18 +68,17 @@ function getHistory() {
 
 
 function historyToDOM(history) {
-
     //Clear table and result for safety
     $('#currentResult').text('');
     $('#historyTableBody').empty();
 
-
-    let current = history[history.length - 1].result;
-
+    //Current is equal to the last equation put in history
+    let current = history[0].result;
     if (firstTime === false) {
         $('#currentResult').text(current);
     };
 
+    //After the above is run, this is no longer the first time the page loaded
     firstTime = false;
 
     //Look at history, put it all on DOM
@@ -128,6 +97,13 @@ function historyToDOM(history) {
         </td>
     `)
     }
+
+    //This just detects if there is a # in the current results so that it can be highlighted
+    if ($('#currentResult').text().length > 0) {
+        $('.result').addClass('omgNumberInMe');
+    } else {
+        $('.result').removeClass('omgNumberInMe');
+    }
 }
 
 
@@ -135,8 +111,11 @@ function clearInput() {
     //This func empties inputs, and sets the selector to default
     console.log(`Clear Pressed!`);
 
-    $('#operatorSelector').val('default'),
-    $('#numOneIn').val(''),
-    $('#numTwoIn').val(''),
-    $('#currentResult').text('')
+    $('#operatorSelector').val('default');
+    $('#numOneIn').val('');
+    $('#numTwoIn').val('');
+    $('#currentResult').text('');
+
+    //Makes sure current result is no longer highlighted
+    $('.result').removeClass('omgNumberInMe');
 }

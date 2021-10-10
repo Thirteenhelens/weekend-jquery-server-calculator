@@ -21,22 +21,27 @@ app.get("/history", (req, res) => {
 
 
 app.post("/evaluate", (req, res) => {
-    let equation = req.body;
 
-    history.push(calculated(equation));
-    
+    //Calling my math function with the data sent from client
+    let equation = req.body;
+    history.unshift(calculated(equation));
+
+    //Check in and see what history has
     console.log(history);
 
+    //Send good conformation status
     res.sendStatus(202);
 });
 
 
+//Effectively my calculator 
 function calculated(equation) {
     console.log(equation);
     let numOne = Number(equation.inputOne);
     let numTwo = Number(equation.inputTwo);
     let operator = equation.operator;
 
+    //Evaluates the operator to see what kind of math to do
     switch (operator) {
         default:
             console.log('Empty operator');
@@ -58,31 +63,6 @@ function calculated(equation) {
                 console.log(equation.result);
             break;
     }; //switch ends
+
     return equation;
 }
-
-
-// app.post("/guesses", (req, res) => {
-//     console.log("This is req.body", req.body);
-//     // grabs the guesses from input boxes
-//     let allGuesses = req.body;
-
-//     console.log("This is the guesses array!", allGuesses);
-
-//     receiveGuesses(allGuesses);
-//     res.sendStatus(201);
-// });
-
-
-
-
-// req.body.unshift({
-    //     numOneIn: req.body.numOneIn,
-    //     numTwoIn: req.body.numTwoIn,
-    //     operatorSelector: req.body.operatorSelector,
-    //     result: claculator(req.body)
-    // })
-    // let inputs = req.body;
-    // history.push(inputs);
-    // inputs.result = claculated(inputs)
-    // res.send(inputs);

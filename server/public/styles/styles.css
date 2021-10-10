@@ -4,7 +4,7 @@ body {
 
 .topText {
     text-align: left;
-    background-color: darkseagreen;
+    background-color: lightcoral;
     margin-bottom: 25px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -27,4 +27,9 @@ body {
     border: indianred;
     border-style: groove;
     border-radius: 12px;
+}
+
+.omgNumberInMe {
+    background-color: grey;
+    color: honeydew;
 }

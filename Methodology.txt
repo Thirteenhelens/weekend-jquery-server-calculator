@@ -6,8 +6,8 @@
     [X]Setup PORT
 
 
-[] Base Goals
-    [] Make a calculator in the server with a U.I.
+[X] Base Goals
+    [X] Make a calculator in the server with a U.I.
         on client-side
             [X] 2 number inputs
             [X] =, -, /, *, +, selector for type of math
@@ -16,10 +16,12 @@
             [X] When the submit (= button) is clicked, capture this input,
                 bundle it up in an object, and send this object to the server
                 via a POST. 
-                [] Server-side math for the inputs
+                [X] Server-side math for the inputs
             [X] do not use eval() for this assignment
-            [] History of past calculations on DOM
-            [] Save history, put it on DOM
+            [X]] History of past calculations on DOM
+            [X] Save history, put it on DOM
+            []README File
+            [X]Clean up and comments
 
 
 Making the calculation work
@@ -31,11 +33,12 @@ Making the calculation work
         [X]History on DOM - get the history from server
         [X]Iterate over history and put it on the DOM
     []Server-side
-        []Receive Inputs
-        []Math(???)
-        []add a result to the object
-        []Add the object to history
-        []Return the object with result
+        [X]Receive Inputs
+        [X]Math(???)
+        [X]add a result to the object
+        [X]Add the object to history
+        [X]Return the object with result
+
 
 [] Stretch Goals
     []Replace inputs with 1-0 buttons
