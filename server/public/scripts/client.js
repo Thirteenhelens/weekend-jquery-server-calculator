@@ -74,10 +74,10 @@ function historyToDOM(history) {
 
     //Current is equal to the last equation put in history
     let current = history[0].result;
+
     if (firstTime === false) {
         $('#currentResult').text(current);
     };
-
     //After the above is run, this is no longer the first time the page loaded
     firstTime = false;
 
