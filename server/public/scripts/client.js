@@ -100,9 +100,9 @@ function historyToDOM(history) {
 
     //This just detects if there is a # in the current results so that it can be highlighted
     if ($('#currentResult').text().length > 0) {
-        $('#result').addClass('omgNumberInMe');
+        $('#result').addClass('numInResult');
     } else {
-        $('#result').removeClass('omgNumberInMe');
+        $('#result').removeClass('numInResult');
     }
 }
 
@@ -117,5 +117,5 @@ function clearInput() {
     $('#currentResult').text('');
 
     //Makes sure current result is no longer highlighted
-    $('#result').removeClass('omgNumberInMe');
+    $('#result').removeClass('numInResult');
 }
